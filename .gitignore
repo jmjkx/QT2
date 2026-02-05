@@ -1,0 +1,67 @@
+# ============================================
+# Git忽略文件配置
+# ============================================
+
+# CMake编译产物
+build/
+build-*/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# 编译输出文件
+bin/
+lib/
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.dylib
+*.so
+*.a
+*.lib
+
+# Qt相关文件
+*.autosave
+*.pro.user
+*.pro.user.*
+*.qmlc
+*.jsc
+Makefile.*
+*.qm
+
+# IDE配置文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vs/
+*.suo
+*.user
+*.vcxproj
+*.vcxproj.filters
+*.sln
+
+# 调试文件
+*.log
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+*.cache
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,57 @@
+/**
+ * @file secondui.qss
+ * @brief SecondUI模块样式表文件（资源文件）
+ * @details 定义计算器界面的全局样式和主题
+ */
+
+/* 主窗口样式 */
+QWidget {
+    background-color: #2c3e50;
+}
+
+/* 显示框样式 */
+QLineEdit {
+    border: none;
+    border-radius: 8px;
+    background-color: #1abc9c;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* 按钮通用样式 */
+QPushButton {
+    border: none;
+    border-radius: 8px;
+    background-color: #34495e;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #455d75;
+}
+
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* 特殊按钮颜色 */
+QPushButton#clearButton {
+    background-color: #e74c3c;
+}
+
+QPushButton#backspaceButton,
+QPushButton#percentButton {
+    background-color: #e67e22;
+}
+
+QPushButton#equalButton {
+    background-color: #27ae60;
+}
+
+QPushButton#operatorButton {
+    background-color: #3498db;
+}

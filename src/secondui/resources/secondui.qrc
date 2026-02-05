@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/secondui">
+        <file>styles/secondui.qss</file>
+    </qresource>
+</RCC>

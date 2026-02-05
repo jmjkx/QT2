@@ -1,0 +1,56 @@
+/**
+ * @file mainui.qss
+ * @brief MainUI模块样式表文件（资源文件）
+ * @details 定义主界面的全局样式和主题
+ */
+
+/* 主窗口样式 */
+QMainWindow {
+    background-color: #ecf0f1;
+}
+
+/* 按钮通用样式 */
+QPushButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 8px 16px;
+    min-height: 40px;
+}
+
+QPushButton:hover {
+    background-color: #2980b9;
+}
+
+QPushButton:pressed {
+    background-color: #21618c;
+}
+
+QPushButton:disabled {
+    background-color: #95a5a6;
+    color: #bdc3c7;
+}
+
+/* 标签样式 */
+QLabel {
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+/* 文本编辑框样式 */
+QTextEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    background-color: #f8f9fa;
+    selection-background-color: #3498db;
+    selection-color: white;
+}
+
+QTextEdit:focus {
+    border: 2px solid #3498db;
+}
