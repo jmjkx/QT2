@@ -132,7 +132,8 @@ include_directories(
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/src/mainui/include
     ${CMAKE_SOURCE_DIR}/src/secondui/include
-    ${CMAKE_SOURCE_DIR}/src/pages
+    ${CMAKE_SOURCE_DIR}/src/dashboard/include
+    ${CMAKE_SOURCE_DIR}/src/settings/include
 )
 
 # ============================================
@@ -140,8 +141,8 @@ include_directories(
 # ============================================
 add_subdirectory(src/mainui)
 add_subdirectory(src/secondui)
-add_subdirectory(src/pages/dashboard)
-add_subdirectory(src/pages/settings)
+add_subdirectory(src/dashboard)
+add_subdirectory(src/settings)
 
 # ============================================
 # 构建可执行文件
@@ -167,6 +168,8 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE
         ${CMAKE_BINARY_DIR}/src/mainui/mainui_autogen/include
         ${CMAKE_BINARY_DIR}/src/secondui/secondui_autogen/include
+        ${CMAKE_BINARY_DIR}/src/dashboard/dashboard_objects_autogen/include
+        ${CMAKE_BINARY_DIR}/src/settings/settings_objects_autogen/include
         ${secondui_INCLUDE_DIR}
         ${settings_INCLUDE_DIR}
         ${dashboard_INCLUDE_DIR}

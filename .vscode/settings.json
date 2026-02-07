@@ -1,0 +1,76 @@
+{
+    // ============================================
+    // VS Code 配置文件 - LiquidCam 项目
+    // ============================================
+    // C++配置
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    // 文件编码
+    "files.encoding": "utf8",
+    "files.autoGuessEncoding": true,
+    // 编辑器配置
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    // C++代码格式化
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 100, Standard: Cpp11 }",
+    // CMake配置
+    "cmake.configureOnOpen": false,
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.generator": "Ninja",
+    "cmake.configureArgs": [
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+    ],
+    "cmake.defaultVariants": {
+        "buildType": {
+            "default": "debug",
+            "choices": {
+                "debug": {
+                    "short": "Debug",
+                    "long": "Debug build",
+                    "buildType": "Debug"
+                },
+                "release": {
+                    "short": "Release",
+                    "long": "Release build",
+                    "buildType": "Release"
+                }
+            }
+        }
+    },
+    // 文件关联
+    "files.associations": {
+        "*.qss": "css",
+        "*.ui": "xml",
+        "*.qrc": "xml"
+    },
+    // Qt相关（支持Qt5和Qt6）
+    "qt.version": "6.5.0",
+    "qt.quick.debug.enabled": false,
+    // 排除文件（避免 VSCode 索引编译产物）
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/build": true,
+        "**/bin": true,
+        "**/lib": true,
+        "**/*.autosave": true
+    },
+    // 搜索时排除
+    "search.exclude": {
+        "**/build": true,
+        "**/bin": true,
+        "**/lib": true,
+        "**/*.autosave": true
+    },
+    // 文件监视排除（提高性能）
+    "files.watcherExclude": {
+        "**/build/**": true,
+        "**/bin/**": true,
+        "**/lib/**": true
+    }
+}

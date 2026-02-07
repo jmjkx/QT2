@@ -121,13 +121,13 @@ QListWidget::item:selected {
   <customwidget>
    <class>FileManagerPage</class>
    <extends>QWidget</extends>
-   <header>dashboard/include/FileManagerPage.h</header>
+   <header>FileManagerPage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>PreferencesPage</class>
    <extends>QWidget</extends>
-   <header>settings/include/PreferencesPage.h</header>
+   <header>PreferencesPage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
