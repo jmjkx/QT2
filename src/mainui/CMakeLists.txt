@@ -15,16 +15,14 @@ set(MODULE_NAME mainui)
 # 模块源文件（所有.cpp文件）
 set(MODULE_SOURCES
     src/MainWindow.cpp
-    biz/MainController.cpp
 )
 
 # 模块头文件（所有.h文件）
 set(MODULE_HEADERS
     include/MainWindow.h
-    include/MainController.h
 )
 
-# UI文件（所有.ui文件，如果有）
+# UI文件（所有.ui文件）
 set(MODULE_UIS
     ui/MainWindow.ui
 )
@@ -33,6 +31,16 @@ set(MODULE_UIS
 set(MODULE_RESOURCES
     resources/mainui.qrc
 )
+
+# ============================================
+# 启用Qt的AUTOUIC来自动处理.ui文件
+# ============================================
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+# AUTOUIC搜索路径
+set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/ui)
 
 # ============================================
 # 根据BUILD_STATIC_LIBS选项决定编译方式
@@ -62,8 +70,10 @@ add_library(${MODULE_NAME}_if INTERFACE)
 target_include_directories(${MODULE_NAME}_if INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/biz
-    ${CMAKE_CURRENT_SOURCE_DIR}/../secondui/include
+    ${CMAKE_SOURCE_DIR}/src/pages
+    # 包含生成的ui_*.h文件目录
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mainui_autogen/include>
 )
 
 # 向父项目导出INTERFACE库名称
@@ -79,7 +89,10 @@ set(MAINUI_HEADERS ${MODULE_HEADERS} PARENT_SCOPE)
 set(MAINUI_INCLUDE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/biz
+    ${CMAKE_SOURCE_DIR}/src/pages
+    # 生成的文件目录
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}/mainui_autogen/include
     PARENT_SCOPE
 )
 
@@ -101,11 +114,10 @@ if(BUILD_STATIC_LIBS)
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/biz>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../secondui/include>
+            # 生成的ui_*.h文件
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/mainui_autogen/include>
     )
-
-    # 链接secondui模块（用于访问SecondWindow）
-    target_link_libraries(${MODULE_NAME} PRIVATE secondui)
 
     # 设置C++标准
     target_compile_features(${MODULE_NAME} PUBLIC cxx_std_11)
@@ -120,13 +132,20 @@ else()
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}/biz
-        ${CMAKE_CURRENT_SOURCE_DIR}/../secondui/include
+        # 生成的文件目录
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}/mainui_autogen/include
     )
     target_compile_features(${MODULE_NAME}_objects PUBLIC cxx_std_11)
     if(WIN32)
         target_compile_definitions(${MODULE_NAME}_objects PRIVATE UNICODE _UNICODE)
     endif()
 endif()
+
+# ============================================
+# 复制UI文件到构建目录（可选，方便查看生成的文件）
+# ============================================
+add_custom_target(${MODULE_NAME}_ui_sources SOURCES ${MODULE_UIS})
 
 # 调试信息
 message(STATUS "Module: ${MODULE_NAME} configured successfully")

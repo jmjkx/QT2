@@ -1,29 +1,21 @@
 /**
  * @file main.cpp
- * @brief LiquidCam主入口
+ * @brief 程序入口
  */
 
 #include <QApplication>
 #include <QDebug>
-#include <QDir>
 #include "MainWindow.h"
-
-namespace mainui { class MainWindow; }
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    app.setApplicationName("LiquidCam");
-    app.setApplicationVersion("1.0.0");
-    app.setOrganizationName("LiquidCam Team");
-    app.setStyle("Fusion");
+    app.setApplicationName("MultiPageDemo");
+    
+    qDebug() << "程序启动...";
 
-    qDebug() << "LiquidCam Starting...";
-    qDebug() << "Version:" << app.applicationVersion();
-    qDebug() << "Working Dir:" << QDir::currentPath();
-
-    mainui::MainWindow mainWindow;
-    mainWindow.show();
+    mainui::MainWindow window;
+    window.show();
 
     return app.exec();
 }

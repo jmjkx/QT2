@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FileManagerPage</class>
+ <widget class="QWidget" name="FileManagerPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>文件管理器</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>10</number>
+   </property>
+   <property name="leftMargin">
+    <number>15</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>15</number>
+   </property>
+   <property name="bottomMargin">
+    <number>15</number>
+   </property>
+   
+   <!-- 标题 -->
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="text">
+      <string>📁 文件管理器</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 20px; font-weight: bold; color: #2c3e50;</string>
+     </property>
+    </widget>
+   </item>
+   
+   <!-- 工具栏 -->
+   <item>
+    <layout class="QHBoxLayout" name="toolbarLayout">
+     <item>
+      <widget class="QPushButton" name="upButton">
+       <property name="text">
+        <string>⬆ 上级</string>
+       </property>
+       <property name="toolTip">
+        <string>返回上级目录</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="homeButton">
+       <property name="text">
+        <string>🏠 主页</string>
+       </property>
+       <property name="toolTip">
+        <string>跳转到用户目录</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="refreshButton">
+       <property name="text">
+        <string>🔄 刷新</string>
+       </property>
+       <property name="toolTip">
+        <string>刷新当前目录</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="pathEdit">
+       <property name="placeholderText">
+        <string>输入路径并回车跳转...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   
+   <!-- 搜索和过滤 -->
+   <item>
+    <layout class="QHBoxLayout" name="filterLayout">
+     <item>
+      <widget class="QLineEdit" name="searchEdit">
+       <property name="placeholderText">
+        <string>🔍 搜索文件...</string>
+       </property>
+       <property name="minimumWidth">
+        <number>200</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="filterCombo">
+       <property name="minimumWidth">
+        <number>150</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="filterSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   
+   <!-- 主内容区 -->
+   <item>
+    <layout class="QHBoxLayout" name="contentLayout">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     
+     <!-- 左侧树形目录 -->
+     <item>
+      <widget class="QGroupBox" name="navGroup">
+       <property name="title">
+        <string>目录</string>
+       </property>
+       <property name="minimumWidth">
+        <number>200</number>
+       </property>
+       <property name="maximumWidth">
+        <number>250</number>
+       </property>
+       <layout class="QVBoxLayout" name="navLayout">
+        <item>
+         <widget class="QTreeView" name="treeView">
+          <property name="headerHidden">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     
+     <!-- 中间文件列表 -->
+     <item>
+      <widget class="QGroupBox" name="filesGroup">
+       <property name="title">
+        <string>文件</string>
+       </property>
+       <layout class="QVBoxLayout" name="filesLayout">
+        <item>
+         <widget class="QListView" name="listView">
+          <property name="iconSize">
+           <size>
+            <width>48</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="spacing">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     
+     <!-- 右侧文件信息 -->
+     <item>
+      <widget class="QGroupBox" name="infoGroup">
+       <property name="title">
+        <string>文件信息</string>
+       </property>
+       <property name="minimumWidth">
+        <number>200</number>
+       </property>
+       <property name="maximumWidth">
+        <number>250</number>
+       </property>
+       <layout class="QVBoxLayout" name="infoLayout">
+        <item>
+         <widget class="QLabel" name="fileNameLabel">
+          <property name="text">
+           <string>名称: --</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="fileSizeLabel">
+          <property name="text">
+           <string>大小: --</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="fileTypeLabel">
+          <property name="text">
+           <string>类型: --</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="fileDateLabel">
+          <property name="text">
+           <string>修改: --</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="infoSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   
+   <!-- 状态栏 -->
+   <item>
+    <widget class="QLabel" name="statusLabel">
+     <property name="text">
+      <string>就绪</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #7f8c8d; padding: 5px;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

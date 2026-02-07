@@ -6,38 +6,139 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1200</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>LiquidCam - Main Window</string>
+   <string>多页面示例 - Widget提升版</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    
+    <!-- 左侧导航 -->
     <item>
-     <widget class="QLabel" name="titleLabel">
-      <property name="text">
-       <string>欢迎使用 LiquidCam</string>
+     <widget class="QWidget" name="navPanel" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>250</width>
+        <height>16777215</height>
+       </size>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+      <property name="styleSheet">
+       <string notr="true">#navPanel { background-color: #2c3e50; }</string>
       </property>
+      <layout class="QVBoxLayout" name="navLayout">
+       <item>
+        <widget class="QLabel" name="navTitle">
+         <property name="text">
+          <string>导航菜单</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: white; font-size: 16px; font-weight: bold; padding: 10px;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="navList">
+         <property name="styleSheet">
+          <string notr="true">QListWidget {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+}
+QListWidget::item {
+    padding: 15px 20px;
+    border-left: 4px solid transparent;
+}
+QListWidget::item:selected {
+    background-color: #34495e;
+    border-left: 4px solid #3498db;
+}</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
+    
+    <!-- 右侧内容区 - 使用 QStackedWidget 切换页面 -->
     <item>
-     <widget class="QLabel" name="infoLabel">
-      <property name="text">
-       <string>这是一个基于Qt5和CMake的多模块项目模板</string>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color: #ecf0f1;</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
+      
+      <!-- 页面1: 文件管理 - 通过提升嵌入 FileManagerPage -->
+      <widget class="FileManagerPage" name="fileManagerPage">
+       <property name="styleSheet">
+        <string notr="true">/* 文件管理页面样式 */</string>
+       </property>
+      </widget>
+      
+      <!-- 页面2: 首选项 - 通过提升嵌入 PreferencesPage -->
+      <widget class="PreferencesPage" name="preferencesPage">
+       <property name="styleSheet">
+        <string notr="true">/* 首选项页面样式 */</string>
+       </property>
+      </widget>
+      
+      <!-- 页面3: 计算器 - 通过提升嵌入 CalculatorPage -->
+      <widget class="CalculatorPage" name="calculatorPage">
+       <property name="styleSheet">
+        <string notr="true">/* 计算器页面样式 */</string>
+       </property>
+      </widget>
+      
+      <!-- 添加新页面：复制上面的 widget 块，修改 class 和 name -->
+      
      </widget>
     </item>
+    
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ 
+ <!-- 自定义控件声明（提升） -->
+ <customwidgets>
+  <customwidget>
+   <class>FileManagerPage</class>
+   <extends>QWidget</extends>
+   <header>dashboard/include/FileManagerPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PreferencesPage</class>
+   <extends>QWidget</extends>
+   <header>settings/include/PreferencesPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CalculatorPage</class>
+   <extends>QWidget</extends>
+   <header>CalculatorPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <!-- 添加新页面时，在这里添加 customwidget 声明 -->
+ </customwidgets>
+ 
  <resources/>
  <connections/>
 </ui>

@@ -11,6 +11,8 @@ CMakeFiles/
 cmake_install.cmake
 Makefile
 *.cmake
+!CMakeLists.txt
+!CMakePresets.json
 
 # 编译输出文件
 bin/
@@ -26,7 +28,12 @@ lib/
 *.a
 *.lib
 
-# Qt相关文件
+# Qt自动生成的文件
+*_autogen/
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
 *.autosave
 *.pro.user
 *.pro.user.*
@@ -35,8 +42,7 @@ lib/
 Makefile.*
 *.qm
 
-# IDE配置文件
-.vscode/
+# IDE配置文件（保留VSCode配置）
 .idea/
 *.swp
 *.swo
@@ -47,6 +53,7 @@ Makefile.*
 *.vcxproj
 *.vcxproj.filters
 *.sln
+.qtcreator/
 
 # 调试文件
 *.log
@@ -65,3 +72,6 @@ Makefile.*
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 编译命令数据库（可选：如果不想提交）
+# compile_commands.json
