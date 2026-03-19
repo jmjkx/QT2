@@ -376,3 +376,29 @@ private:
     T* m_worker = nullptr;
 };
 ```
+
+```
+// 在 MainWindow.h 中
+std::unique_ptr<SafeThreadControl<MyWorker>> m_task;
+
+// 在 MainWindow.cpp 的槽函数中
+void MainWindow::on_startButton_clicked() {
+    // 1. 初始化（如果之前有任务在跑，unique_ptr 会自动调用旧对象的析构函数，即安全停止旧线程）
+    m_task = std::unique_ptr<SafeThreadControl<MyWorker>>(new SafeThreadControl<MyWorker>());
+
+    // 2. 错误处理回调
+    m_task->onError([](const QString& err) {
+        qCritical() << "Worker reported error:" << err;
+        // 这里可以弹出 QMessageBox，注意跨线程 UI 限制
+    });
+
+    // 3. 连接具体的业务信号（比如进度条）
+    connect(m_task->worker(), &MyWorker::progressUpdated, this, &MainWindow::updateUI);
+
+    // 4. 手动开始
+    m_task->start();
+
+    // 5. 触发业务逻辑（通常通过信号槽，确保在子线程执行）
+    QMetaObject::invokeMethod(m_task->worker(), "doComplexWork"); 
+}
+```
