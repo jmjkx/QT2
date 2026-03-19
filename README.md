@@ -312,3 +312,67 @@ export Qt5_DIR=/opt/Qt5.15.2/lib/cmake/Qt5
 ## 联系方式
 
 如有问题或建议，请联系项目维护者。
+
+```
+#include <QThread>
+#include <QObject>
+#include <QDebug>
+#include <functional>
+#include <memory>
+
+template <typename T>
+class SafeThreadControl {
+    static_assert(std::is_base_of<QObject, T>::value, "T must be a QObject");
+
+public:
+    // 构造函数：不立即启动
+    template <typename... Args>
+    SafeThreadControl(Args&&... args) {
+        m_worker = new T(std::forward<Args>(args)...);
+        m_thread = new QThread();
+
+        m_worker->moveToThread(m_thread);
+
+        // 标准清理流程：线程结束后销毁对象，对象销毁后销毁线程
+        QObject::connect(m_thread, &QThread::finished, m_worker, &QObject::deleteLater);
+        QObject::connect(m_worker, &QObject::destroyed, m_thread, &QObject::deleteLater);
+    }
+
+    ~SafeThreadControl() {
+        stop();
+    }
+
+    // 设置错误处理回调
+    void onError(std::function<void(const QString&)> callback) {
+        // 假设你的 Worker 类有一个信号：void errorOccurred(QString)
+        // 使用 Lambda 捕获并转发错误
+        QObject::connect(m_worker, SIGNAL(errorOccurred(QString)), m_thread, [callback](const QString& msg) {
+            if (callback) callback(msg);
+        });
+    }
+
+    // 手动启动
+    void start() {
+        if (m_thread && !m_thread->isRunning()) {
+            m_thread->start();
+            qDebug() << "Thread started for worker.";
+        }
+    }
+
+    // 强力停止
+    void stop() {
+        if (m_thread && m_thread->isRunning()) {
+            m_thread->quit();
+            if (!m_thread->wait(2000)) { // 给 2 秒优雅退出的时间
+                m_thread->terminate();   // 实在不行再暴力结束
+            }
+        }
+    }
+
+    T* worker() const { return m_worker; }
+
+private:
+    QThread* m_thread = nullptr;
+    T* m_worker = nullptr;
+};
+```
